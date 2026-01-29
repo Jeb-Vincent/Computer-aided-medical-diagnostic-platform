@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>医学影像转换平台</title>
+<link rel="icon" href="../static/img/med.png" type="image/x-icon">
+<link rel="stylesheet" href="../static/css/sty.css">
+<link rel="stylesheet" href="../static/css/styles.css">
+<script defer src="../static/js/script.js"></script>
+</head>
+<body>
+<!-- 导航栏 -->
+<nav class="navbar">
+    <div class="nav-content">
+        <a href="{% url 'home' %}" class="logo">计算机辅助医疗诊断平台</a>
+        <div class="nav-links">
+            <a href="{% url 'home' %}">首页</a>
+            <a href="{% url 'first' %}">CA-CTA转换</a>
+            <a href="{% url 'dicom_processor' %}">阈值分割</a>
+            <a href="{% url 'home' %}">数据分析</a>
+            <a href="{% url 'sysm' %}">使用说明</a>
+            <a href="{% url 'chat' %}">AI助手</a>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div style="margin-top: 100px;text-align: center;">
+        <img id="logoImg" src="../static/img/logo.png" alt="CT-CTA影像模态转换器">
+        <br>
+        "先进的医学影像分析工具助力精准医疗"
+    </div>
+    <main>
+        <section id="uploadSection">
+            <form id="imageForm" enctype="multipart/form-data">
+                <label for="imageUpload">选择PNG格式的影像文件：</label>
+                <input type="file" id="imageUpload" name="imageUpload" accept=".dcm,.png"/>
+                <button type="submit">上传并分析</button>
+                <!-- 加载指示器 -->
+                <div id="loadingIndicator" style="display: none;">正在分析，请稍候...</div>
+            </form>
+        </section>
+        <section id="resultSection" class="hidden">
+            <h2 style="text-align: center;">分析结果</h2>
+            <div class="result-container">
+                <img id="processedImage" alt="Processed Medical Image"/>
+                <a id="downloadLink" href="#" download="analysis_result.png">下载分析报告</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 医学CT-CTA影像模态转换平台. All rights reserved.</p>
+    </footer>
+</div>
+</body>
+</html>

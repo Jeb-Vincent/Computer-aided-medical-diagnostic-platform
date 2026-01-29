@@ -1,0 +1,351 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../static/img/med.png" type="image/x-icon">
+    <title>使用说明 - 医学影像云平台</title>
+    <link rel="stylesheet" href="{% static 'css/sty.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sysm1.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sysm2.css' %}">
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="{% url 'home' %}" class="logo">计算机辅助医疗诊断平台</a>
+            <div class="nav-links">
+                <a href="{% url 'home' %}">首页</a>
+                <a href="{% url 'first' %}">CA-CTA转换</a>
+                <a href="{% url 'dicom_processor' %}">阈值分割</a>
+                <a href="{% url 'home' %}">数据分析</a>
+                <a href="{% url 'sysm' %}">使用说明</a>
+                <a href="{% url 'chat' %}">AI助手</a>
+            </div>
+        </div>
+    </nav>
+
+
+<main class="container">
+    <article class="article heti heti--classic">
+        <h1 class="article__title">关于网站</h1>
+        <blockquote>本网站是基于深度学习的计算机辅助医疗诊断的医工结合项目，旨在使用深度学习技术处理医学影像，用于病理检测、病灶分割等方面，提供对医疗工作的辅助诊断功能。</blockquote>
+
+        <nav class="article__nav heti-skip">
+            <details open>
+                <summary>目录</summary>
+                <ol>
+                    <li><a href="#intro">介绍</a></li>
+                    <li><a href="#usage">转换器使用方法</a></li>
+                    <li>
+                        <a href="#examples">其他功能简介</a>
+                        <ul>
+                            <li><a href="#example-ancient">功能1</a></li>
+                            <li><a href="#example-verse">功能2</a></li>
+                            <li><a href="#example-annotation">功能3</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#guidelines">设计原则</a></li>
+                    <li>
+                        <a href="#appendix">附录</a>
+                        <ol class="heti-list-latin">
+                            <li><a href="#compatibility">兼容性</a></li>
+                            <li><a href="#license">开源协议</a></li>
+                        </ol>
+                    </li>
+                </ol>
+            </details>
+        </nav>
+
+        <h2 id="intro">介绍<a class="anchor" href="#intro">#</a></h2>
+        <p>
+            多模态医学影像指的是利用不同物理现象的成像技术（或模态）获取同一器官或结构的图像。不同模态的医学图像对于改善临床决策至关重要。多模态影像具有更高的成像质量和准确性，可以帮助医生分析病变的大小、形态、结构等信息，从而做出更加准确的判断。其主要特性有:</p>
+        <ul>
+            <li>基于深度学习；</li>
+            <li>提出无监督ResAPA-CycleGAN方法，利用GAN和CycleGAN从CT生成CTA图像；</li>
+            <li>基于ResNet，使用ASPP和AdaLIN提升特征传递和域转换能力；</li>
+            <li>可以帮助无法使用血管造影剂的患者；</li>
+            <li>多种预设字体族（仅限桌面端）；</li>
+            <li>简/繁体中文支持；</li>
+            <li>自适应黑暗模式；</li>
+            <li>……</li>
+        </ul>
+        <p>总之，这个网站就是很nb。</p>
+
+        <hr>
+
+        <h2 id="usage">转换器使用方法<a class="anchor" href="#usage">#</a></h2>
+        <p>项目地址：<a href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a>，转换器使用方法如下：</p>
+        <ol>
+            <li>
+                进入网站之后点击CT-CTA模态转换器
+                <pre>这步照做就行</pre>
+                <details open>
+                    <summary>示例</summary>
+                    <figure class="card card--multi-column">
+                        <section class="heti--columns-2">
+                            <img src="../static/img/sysm1.png" alt="第一步" width="800" height="450">
+                        </section>
+                        <figcaption>第一步演示</figcaption>
+                    </figure>
+                </details>
+            </li>
+            <li>
+                进入转换器页面后点击上传文件
+                <pre>点完会弹出选择窗口</pre>
+                <details open>
+                    <summary>示例</summary>
+                    <figure class="card card--multi-column">
+                        <section class="heti--columns-2">
+                            <img src="../static/img/sysm2.png" alt="第二步" width="800" height="450">
+                        </section>
+                        <figcaption>第二步演示</figcaption>
+                    </figure>
+                </details>
+            </li>
+            <li>
+                选择文件
+                <pre>选择图片路径，上传的图片只支持png格式</pre>
+                <details open>
+                    <summary>示例</summary>
+                    <figure class="card card--multi-column">
+                        <section class="heti--columns-2">
+                            <img src="../static/img/sysm3.png" alt="第三步" width="800" height="450">
+                        </section>
+                        <figcaption>第三步演示</figcaption>
+                    </figure>
+                </details>
+            </li>
+            <li>
+                点击上传
+                <pre> 点击上传后开始分析，可能需要等待数秒时间，请耐心等待</pre>
+                <details open>
+                    <summary>示例</summary>
+                    <figure class="card card--multi-column">
+                        <section class="heti--columns-2">
+                            <img src="../static/img/sysm4.png" alt="第四步" width="800" height="450">
+                        </section>
+                        <figcaption>第四步演示</figcaption>
+                    </figure>
+                </details>
+            </li>
+            <li>
+                查看结果，可以选择下载保存
+                <pre> 结果显示在屏幕上，查看完成后，可以选择保存，下不下载取决于自己</pre>
+                <details open>
+                    <summary>示例</summary>
+                    <figure class="card card--multi-column">
+                        <section class="heti--columns-2">
+                            <img src="../static/img/sysm5.png" alt="第五步" width="800" height="450">
+                        </section>
+                        <figcaption>第五步演示</figcaption>
+                    </figure>
+                </details>
+            </li>
+        </ol>
+        <small>注：本项目是学生自主研发，没有经过权威认证。因此<b>不建议</b>直接投入使用。用了出现问题后果自负。</small>
+
+        <hr>
+
+        <h2 id="examples">其他功能简介<a class="anchor" href="#examples">#</a></h2>
+        <p>此处<em>全面</em>解释了本网站所有功能，看了不吃亏。下面是各种功能的效果演示。</p>
+
+        <h3 id="example-ancient">功能1<a class="anchor" href="#example-ancient">#</a></h3>
+        <details open>
+            <summary>如何使用？</summary>
+            <p>写点废话</p>
+            <pre><code>写点注意事项</code></pre>
+        </details>
+        <details open>
+            <summary>示例</summary>
+            <section class="demo">
+                演示效果
+            </section>
+        </details>
+
+        <h3 id="example-verse">功能2<a class="anchor" href="#example-verse">#</a></h3>
+        <details open>
+            <summary>如何使用？</summary>
+            <ul>
+                <li>
+                    abab1
+                </li>
+                <li>
+                    abab2
+                </li>
+            </ul>
+        </details>
+        <details open>
+            <summary>示例</summary>
+            <section class="demo">
+                演示效果
+            </section>
+        </details>
+
+        <h3 id="example-annotation">功能3<a class="anchor" href="#example-annotation">#</a></h3>
+        <details open>
+            <summary>如何使用？</summary>
+            <p>写点废话</p>
+            <pre><code>写点注意事项</code></pre>
+        </details>
+        <details open>
+            <summary>示例</summary>
+            <section class="demo">
+                还是示例
+            </section>
+        </details>
+
+        <hr>
+
+        <h2 id="guidelines">设计原则<a class="anchor" href="#guidelines">#</a></h2>
+        <p>本网站的初衷很简单，就是通过深度学习技术实现医学影像的模态转换，为患者、医生和医疗系统带来好处，包括降低成本、提高诊断效率、优化资源配置以及推动智慧医疗发展。同时，本项目也具有重要的社会价值，可以促进了医疗公平和科研进步，改善患者的治疗效果和生活质量。</p>
+
+        <h3>设计思路</h3>
+        <p>在多模态医学图像获取难、速度慢、成本高等问题背景下，我们通过独特的思路创新，利用深度学习技术实现了从单一模态医学图像向多模态图像的转换</p>
+
+        <h3>算法创新</h3>
+        <p>我们不仅将深度学习技术引入医学图像处理领域，更进一步将自然图像处理领域的先进模型如U-net、CycleGAN<sup><a id="ref-02" href="#fn-02">[2]</a></sup>等融合其中。通过这一跨领域的整合，我们成功实现了对多器官病灶的精准分割和图像模态的智能转换，为医学图像处理提供了更为精准和全面的解决方案。
+        </p>
+        <details open>
+            <summary>查看详细算法对照表</summary>
+            <section class="section">
+                <table>
+                    <caption>不对比一下看不出来我们创新了啥</caption>
+                    <tr>
+                        <td></td>
+                        <th>生成器架构</th>
+                        <th>判别器</th>
+                        <th>损失函数</th>
+                        <th>应用效果</th>
+                    </tr>
+                    <tr>
+                        <th>改进前（CycleGAN）</th>
+                        <td>使用普通CNN，可能存在梯度消失和特征传递效率低的问题。</td>
+                        <td>采用普通CNN，缺乏对图像关键区域的关注能力。</td>
+                        <td>损失函数设计较为简单，可能无法充分保留医学影像中的关键解剖结构和病理特征。</td>
+                        <td>一般</td>
+                    </tr>
+                    <tr>
+                        <th>改进后（ResAPA-CycleGAN）</th>
+                        <td>引入残差卷积网络，通过跳跃连接提升特征传递效率；使用ASPP扩展感受野并减少参数量。</td>
+                        <td>引入注意力机制，自动聚焦图像中的重要区域，提升判别器的判断能力。</td>
+                        <td>结合循环一致性损失、对抗损失和特征匹配损失，确保生成图像在内容和细节上与目标图像一致。</td>
+                        <td>反正比一般的好</td>
+                    </tr>
+                </table>
+            </section>
+        </details>
+
+        <h3>吐槽</h3>
+        <p>感觉不如○神</p>
+
+
+        <hr>
+
+        <h2 id="appendix">附录<a class="anchor" href="#appendix">#</a></h2>
+        <h3 id="compatibility">兼容性<a class="anchor" href="#compatibility">#</a></h3>
+        <p>本网站在间距、边框、位置属性上采用了Logical properties，在所有现代浏览器上表现良好。</p>
+        <details open>
+            <summary>查看兼容性列表</summary>
+            <section class="section">
+                <table>
+                    <caption>兼容性列表（未经充分测试）</caption>
+                    <tr>
+                        <td></td>
+                        <th>Chrome</th>
+                        <th>Safari</th>
+                        <th>Firefox</th>
+                        <th>IE</th>
+                        <th>Edge</th>
+                    </tr>
+                    <tr>
+                        <th>兼容性</th>
+                        <td>69</td>
+                        <td>12.1</td>
+                        <td>3</td>
+                        <td>暂未支持</td>
+                        <td>79</td>
+                    </tr>
+                </table>
+            </section>
+        </details>
+
+        <h3 id="license">开源协议<a class="anchor" href="#tags">#</a></h3>
+        <p>「本网站」遵循MIT协议开源。</p>
+
+        <footer class="heti-fn">
+            <ol>
+                <li id="fn-01">
+                    <a href="#ref-01" title="移至">^</a>
+                    注释1
+                </li>
+                <li id="fn-02">
+                    <a href="#ref-02" title="移至">^</a>
+                    注释2
+                </li>
+                <li id="fn-03">
+                    <a href="#ref-03" title="移至">^</a>
+                    注释3
+                </li>
+            </ol>
+        </footer>
+    </article>
+</main>
+<aside class="panel">
+    <ul class="panel-list panel-list--gray">
+        <li><input type="radio" class="J_fontStack" value="heti--classic" name="font" id="font-classic" checked><label
+                for="font-classic">传统</label></li>
+        <li><input type="radio" class="J_fontStack" value="heti--sans" name="font" id="font-sans"><label
+                for="font-sans">黑体</label></li>
+        <li><input type="radio" class="J_fontStack" value="heti--serif" name="font" id="font-serif"><label
+                for="font-serif">宋体</label></li>
+    </ul>
+    <ul class="panel-list panel-list--gray">
+        <li><input type="radio" class="J_radioGrid" value="" name="grid" id="grid-disable" checked><label
+                for="grid-disable">网格：关</label></li>
+        <li><input type="radio" class="J_radioGrid" value="grid-24" name="grid" id="grid-24"><label
+                for="grid-24">大</label></li>
+        <li><input type="radio" class="J_radioGrid" value="grid-12" name="grid" id="grid-12"><label
+                for="grid-12">小</label></li>
+    </ul>
+    <ul class="panel-list panel-list--gray panel-list--icon">
+        <li><input type="radio" class="J_darkMode" value="auto" name="darkmode" id="darkmode-auto" checked><label
+                for="darkmode-auto">🌗</label></li>
+        <li><input type="radio" class="J_darkMode" value="light" name="darkmode" id="darkmode-light"><label
+                for="darkmode-light">🌞</label></li>
+        <li><input type="radio" class="J_darkMode" value="dark" name="darkmode" id="darkmode-dark"><label
+                for="darkmode-dark">🌙</label></li>
+    </ul>
+</aside>
+
+<script src="../static/js/sysm.js"></script>
+<script>
+    const $$root = document.getElementsByTagName('html')[0]
+    const $$main = document.getElementsByTagName('main')[0]
+    const $$article = document.getElementsByTagName('article')[0]
+
+    function addEventListeners(nodeList, event, fn) {
+        [].forEach.call(nodeList, function (elm) {
+            elm.addEventListener(event, fn, false)
+        }, false)
+    }
+
+    addEventListeners(document.getElementsByClassName('J_darkMode'), 'change', function (e) {
+        $$root.setAttribute('data-darkmode', e.target.value)
+    })
+
+    addEventListeners(document.getElementsByClassName('J_radioGrid'), 'change', function (e) {
+        $$main.setAttribute('data-bg-grid', e.target.value)
+    })
+
+    addEventListeners(document.getElementsByClassName('J_fontStack'), 'change', function (e) {
+        $$article.className = ['article', 'heti', e.target.value].join(' ')
+    })
+
+    const heti = new Heti('.article')
+    heti.autoSpacing()
+</script>
+</body>
+</html>

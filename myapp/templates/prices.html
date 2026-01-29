@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>价格分布图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f9fd;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        /* 导航栏样式（与文章页一致） */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 82, 186, 0.95);
+            padding: 1rem 5%;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 50px;
+        }
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .chart {
+            width: 80%;
+            max-width: 800px;
+            margin-bottom: 50px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+        }
+        img {
+            width: 100%;
+            height: auto;
+        }
+        .chart-explanation {
+            margin-top: 20px;
+            text-align: center;
+            color: #666;
+            line-height: 1.6;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .conclusion {
+            margin-top: 30px;
+            text-align: center;
+            color: #333;
+            line-height: 1.6;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="{% url 'home' %}" class="logo">计算机辅助医疗诊断平台</a>
+            <div class="nav-links">
+                <a href="{% url 'home' %}">首页</a>
+                <a href="{% url 'first' %}">CA-CTA转换</a>
+                <a href="{% url 'dicom_processor' %}">阈值分割</a>
+                <a href="{% url 'home' %}">数据分析</a>
+                <a href="{% url 'sysm' %}">使用说明</a>
+                <a href="{% url 'chat' %}">AI助手</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>检查项目价格分布</h1>
+        <div class="chart-container">
+            <div class="chart">
+                <h2>CT 检查项目</h2>
+                <img src="data:image/png;base64,{{ graphic_ct }}" alt="CT价格分布图">
+                <div class="chart-explanation">
+                    <p>该图为搜集的所有关于CT平扫、螺旋CT平扫、CT增强、螺旋CT增强项目的价格取平均值得到的结果。</p>
+                </div>
+            </div>
+            <div class="chart">
+                <h2>CTA 检查项目</h2>
+                <img src="data:image/png;base64,{{ graphic_cta }}" alt="CTA价格分布图">
+                <div class="chart-explanation">
+                    <p>该图为搜集的所有关于胸腹主动脉、冠脉CTA的无创FFR分析、头颈CTA、腹主动脉CTA项目的价格取平均值得到的结果。</p>
+                </div>
+            </div>
+            <div class="chart">
+                <h2>CT 与 CTA 平均价格对比</h2>
+                <img src="data:image/png;base64,{{ graphic_comparison }}" alt="价格对比图">
+                <div class="chart-explanation">
+                    <p>CT 平均价格：{{ ct_avg_price }}元</p>
+                    <p>CTA 平均价格：{{ cta_avg_price }}元</p>
+                </div>
+                <div class="conclusion">
+                    <p>结论：CT 价格明显低于 CTA 价格。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

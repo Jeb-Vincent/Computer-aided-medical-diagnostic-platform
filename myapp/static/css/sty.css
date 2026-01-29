@@ -1,0 +1,290 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f9fd;
+}
+
+/* 导航栏 */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(15, 82, 186, 0.95);
+    padding: 1rem 5%;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ffd700;
+}
+
+/* 轮播图 */
+.carousel {
+    width: 100%;
+    height: 55vh;
+    margin-top: 70px;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-inner {
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 10;
+}
+
+.carousel-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative; /* 添加 relative 定位 */
+}
+.carousel-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.carousel-btn::before {
+    content: '';
+    position: absolute; /* 绝对定位 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg); /* 以中心为基准旋转 */
+    width: 12px;
+    height: 12px;
+    border-left: 3px solid white;
+    border-bottom: 3px solid white;
+}
+/*左箭头*/
+.prev-btn::before {
+    transform: translate(-50%, -50%) rotate(45deg); /* 确保方向正确 */
+}
+
+/* 右箭头 */
+.next-btn::before {
+    transform: translate(-50%, -50%) rotate(-135deg); /* 方向调整 */
+}
+
+/* 新增指示器样式 */
+.carousel-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: #0f52ba;
+    transform: scale(1.2);
+}
+/* 文章区域 */
+.articles-section {
+    max-width: 1200px;
+    margin: 3rem auto;
+    /*padding: 0 2rem;*/
+}
+
+.article-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.article-item {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.article-item:hover {
+    transform: translateY(-5px);
+}
+
+.article-image {
+    flex: 0 0 40%;
+    height: 270px;
+    margin: 20px;
+}
+
+.article-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.article-content {
+    flex: 1;
+    padding: 2rem;
+}
+
+.article-title {
+    color: #0f52ba;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.article-list {
+    list-style: none;
+}
+
+.article-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.article-list a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.article-list a:hover {
+    color: #0f52ba;
+}
+.more-link {
+    display: inline-block;
+    margin-left: 450px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.7em;
+}
+.more-link:hover {
+    color: #009cfd;             /* 悬停时颜色加深 */
+}
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .carousel {
+        height: 50vh;
+    }
+
+    .article-item {
+        flex-direction: column;
+    }
+
+    .article-image {
+        flex: 0 0 250px;
+    }
+}
+
+/* 设置整个页脚的背景颜色 */
+.site-footer {
+    background-color: #e0f7fad1; /* 淡蓝色 */
+    color: #333; /* 文字颜色 */
+    padding: 20px 0;
+    margin-top: 40px; /* 给页脚与内容之间留一些空间 */
+}
+
+/* 调整页脚内容的最大宽度，并居中显示 */
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 常见问题标题样式 */
+.footer-content h2 {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+/* 单个常见问题项的样式 */
+.faq-section .faq-item {
+    border-bottom: 1px solid #ccc;
+    font-size: 0.8em;
+    padding: 15px 0;
+}
+
+/* 常见问题的问题和答案样式 */
+.faq-section .faq-item h3, .faq-section .faq-item p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.faq-section .faq-item h3 {
+    font-weight: bold;
+}

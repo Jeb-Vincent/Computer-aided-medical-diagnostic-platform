@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医学影像云平台</title>
+    <link rel="stylesheet" href="{% static 'css/sty.css' %}">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="{% url 'home' %}" class="logo">计算机辅助医疗诊断平台</a>
+            <div class="nav-links">
+                <a href="{% url 'home' %}">首页</a>
+                <a href="{% url 'first' %}">CA-CTA转换</a>
+                <a href="{% url 'dicom_processor' %}">阈值分割</a>
+                <a href="{% url 'prices' %}">数据分析</a>
+                <a href="{% url 'sysm' %}">使用说明</a>
+                <a href="{% url 'chat' %}">AI助手</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 轮播图 -->
+    <div class="carousel">
+        <div class="carousel-inner">
+            <div class="slide active">
+                <img src="../static/img/医疗科技.jpg" alt="CT影像技术">
+            </div>
+            <div class="slide">
+                <img src="../static/img/医疗2.png" alt="MRI诊断平台">
+            </div>
+            <div class="slide">
+                <img src="../static/img/fei.jpg" alt="X光影像分析">
+            </div>
+        </div>
+        <!-- 新增控制按钮 -->
+        <div class="carousel-controls">
+            <button class="carousel-btn prev-btn"></button>
+            <button class="carousel-btn next-btn"></button>
+        </div>
+
+        <!-- 新增指示器 -->
+        <div class="carousel-indicators">
+            <div class="indicator active" data-slide="0"></div>
+            <div class="indicator" data-slide="1"></div>
+            <div class="indicator" data-slide="2"></div>
+        </div>
+    </div>
+
+    <!-- 文章区域 -->
+    <section class="articles-section">
+        <div class="article-grid">
+            <article class="article-item">
+                <div class="article-image">
+                    <img src="../static/img/医疗3.png" alt="医学案例">
+                </div>
+                <div class="article-content">
+                    <h2 class="article-title">
+                        医学文章
+                        <a href="{% url 'article_list' %}" class="more-link">更多文章</a>
+                    </h2>
+                    <ul class="article-list">
+                        {% for article in latest_articles %}
+                            <li>
+                                <a href="{% url 'article_detail' article.id %}">
+                                    {{ article.title }}
+                                </a>
+                            </li>
+                        {% empty %}
+                            <li>暂无文章</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </article>
+            <article class="article-item">
+                <div class="article-image">
+                    <img src="../static/img/fei.jpg" alt="医学影像">
+                </div>
+                <div class="article-content">
+                    <h2 class="article-title">
+                        医学视频
+                        <a href="{% url 'video_list' %}" class="more-link">更多视频</a>
+                    </h2>
+                    <ul class="article-list">
+                        {% for video in latest_video %}
+                            <li>
+                                <a href="{% url 'video_detail' video.id %}">
+                                    {{ video.title }}
+                                </a>
+                            </li>
+                        {% empty %}
+                            <li>暂无视频</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <h2>常见问题</h2>
+            <div class="faq-section">
+                <div class="faq-item">
+                    <h3>Q: 如何使用我们的产品？</h3>
+                    <p>A: 请参考我们的使用说明手册或联系我们的技术支持团队。</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q: 支持哪些类型的医学影像数据？</h3>
+                    <p>A: 我们支持CT、MRI、X光等多种类型的医学影像数据。</p>
+                </div>
+                <!-- 可以继续添加更多的常见问题 -->
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>

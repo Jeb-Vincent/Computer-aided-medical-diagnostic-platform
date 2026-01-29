@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>医学视频</title>
+    <style>
+        /* 全局基础样式（与文章页一致） */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f9fd;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        /* 导航栏样式（与文章页一致） */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 82, 186, 0.95);
+            padding: 1rem 5%;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+
+        /* 视频列表容器样式（固定宽度） */
+        .video-list {
+            width: 800px; /* 固定宽度 */
+            margin: 70px auto 50px; /* 水平居中 */
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .video-list h1 {
+            text-align: center;
+            color: #0046a3;
+            margin-bottom: 2rem;
+        }
+
+        /* 视频项样式 */
+        .video-item {
+            display: block;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+            width: 100%; /* 填满容器 */
+        }
+        .video-item:hover {
+            background-color: #f8f9fa;
+            color: #007bff;
+        }
+
+        /* 标题防溢出 */
+        .video-item h3 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* 分页样式（与文章页一致） */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+        .page-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: #666;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .page-link:hover {
+            background-color: #f8f9fa;
+            border-color: #007bff;
+            color: #007bff;
+        }
+        .current-page {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="{% url 'home' %}" class="logo">计算机辅助医疗诊断平台</a>
+            <div class="nav-links">
+                <a href="{% url 'home' %}">首页</a>
+                <a href="{% url 'first' %}">CA-CTA转换</a>
+                <a href="{% url 'dicom_processor' %}">阈值分割</a>
+                <a href="{% url 'home' %}">数据分析</a>
+                <a href="{% url 'sysm' %}">使用说明</a>
+                <a href="{% url 'chat' %}">AI助手</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 视频列表 -->
+    <div class="video-list">
+        <h1>医学科普视频库</h1>
+        {% for video in page_obj %}
+            <a href="{% url 'video_detail' video.pk %}" class="video-item">
+                <h3>{{ video.title }}</h3>
+                <p>发布时间：{{ video.published_at|date:"Y-m-d" }}</p>
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- 分页 -->
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="page-link">首页</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="page-link">上一页</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <span class="page-link current-page">{{ num }}</span>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="page-link">下一页</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">末页</a>
+        {% endif %}
+    </div>
+</body>
+</html>

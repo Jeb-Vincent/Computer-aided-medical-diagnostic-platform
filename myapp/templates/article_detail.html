@@ -1,0 +1,124 @@
+<!-- templates/article_detail.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ article.title }}</title>
+    <style>
+        /* 全局基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f9fd;
+        }
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 82, 186, 0.95);
+            padding: 1rem 5%;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+        .article-detail-container {
+            max-width: 800px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin: 70px auto 40px;
+        }
+        /* 标题样式 */
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        /* 正文段落 */
+        .paragraph-block {
+            margin-bottom: 25px;
+        }
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        /* 图片样式 */
+        .image-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .article-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="{% url 'home' %}" class="logo">计算机辅助医疗诊断平台</a>
+            <div class="nav-links">
+                <a href="{% url 'home' %}">首页</a>
+                <a href="{% url 'first' %}">CA-CTA转换</a>
+                <a href="{% url 'dicom_processor' %}">阈值分割</a>
+                <a href="{% url 'home' %}">数据分析</a>
+                <a href="{% url 'sysm' %}">使用说明</a>
+                <a href="{% url 'chat' %}">AI助手</a>
+                <a href="{% url 'article_list' %}">返回列表</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="article-detail-container">
+        <h1>{{ article.title }}</h1>
+        <p>发布日期：{{ article.created_at|date:"Y年m月d日" }}</p>
+
+        {% for paragraph in article.paragraphs.all %}
+            <div class="paragraph-block">
+                {% if paragraph.content and not paragraph.image_ref %}
+                    <p>{{ paragraph.content }}</p>
+                {% endif %}
+                {% if paragraph.image_ref %}
+                    <div class="image-container">
+                        <img src="{{ paragraph.image_ref.url }}"
+                             alt="{{ paragraph.image_ref.identifier }}"
+                             class="article-image"
+                             onerror="this.style.display='none'">
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

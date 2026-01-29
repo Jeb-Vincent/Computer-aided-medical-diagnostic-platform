@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Chat Assistant powered by Deepseek API">
+    <title>AI 聊天助手</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sty.css' %}">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="{% url 'home' %}" class="logo">计算机辅助医疗诊断平台</a>
+            <div class="nav-links">
+                <a href="{% url 'home' %}">首页</a>
+                <a href="{% url 'first' %}">CA-CTA转换</a>
+                <a href="{% url 'dicom_processor' %}">阈值分割</a>
+                <a href="{% url 'home' %}">数据分析</a>
+                <a href="{% url 'sysm' %}">使用说明</a>
+                <a href="{% url 'chat' %}">AI助手</a>
+            </div>
+        </div>
+    </nav>
+
+    <h1 style="text-align: center;margin-top: 70px;padding-top: 20px;background-color: white;box-shadow: 0 2px 4px rgba(0,0,0,0.1);">AI 聊天助手</h1>
+    <p class="subtitle" style="text-align: center;padding-bottom: 20px;background-color: white;box-shadow: 0 2px 4px rgba(0,0,0,0.1);">基于 Deepseek API 提供服务</p>
+
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox">
+            <div class="message ai-message">
+                你好！我是AI助手，很高兴为你服务。请问有什么我可以帮助你的吗？
+            </div>
+        </div>
+
+        <div class="input-container">
+            <textarea
+                id="userInput"
+                placeholder="输入你的消息... (Shift + Enter 换行，Enter 发送)"
+                rows="1"
+                autocomplete="off"
+                autofocus
+            ></textarea>
+            <button id="sendButton" onclick="sendMessage()">
+                <span class="button-text">发送</span>
+                <span class="button-loading hidden">
+                    <span class="loading-dots">...</span>
+                </span>
+            </button>
+        </div>
+
+        <div class="status-bar">
+            <span id="statusMessage"></span>
+            <span id="typingIndicator" class="hidden">AI正在输入...</span>
+        </div>
+    </div>
+
+    {% csrf_token %}
+    <script src="{% static 'js/chat.js' %}"></script>
+</body>
+</html>
